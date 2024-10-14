@@ -24,4 +24,9 @@ urlpatterns = [
     path("api/deleteColor/<str:name>", views.delete_color, name="color_delete"),
     path("api/editColor/<str:name>", views.update_color, name="color_edit"),
     path("api/indexColor/", views.get_colors, name="color_index"),
+    path("api/createSeason/", views.create_season, name="create_season"),
+    path("api/getSeason/<str:name>", views.get_season, name="season_view"),
+    path("api/deleteSeason/<str:name>", views.delete_season, name="season_delete"),
+    path("api/editSeason/<str:name>", views.update_season, name="season_edit"),
+    path("api/indexSeason/", views.get_seasons, name="season_index"),
 ]
