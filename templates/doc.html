@@ -1,1 +1,479 @@
-<h1><span>coucou je suis la documentation</span></h1> <span>documentative servant à documenter ceux qui se documentent </span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #4CAF50;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .endpoint {
+            margin-bottom: 40px;
+        }
+        .method {
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+        .method.POST {
+            background-color: #4CAF50;
+        }
+        .method.GET {
+            background-color: #2196F3;
+        }
+        .method.PATCH {
+            background-color: #FF9800;
+        }
+        .method.DELETE {
+            background-color: #F44336;
+        }
+        .path {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+        .description {
+            font-style: italic;
+            margin: 10px 0;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .response, .request {
+            margin-top: 20px;
+        }
+        .label {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>API Documentation</h1>
+    <div class="container">
+        <!-- Authentication -->
+        <div class="endpoint">
+            <div class="path">
+                <span class="method POST">POST</span> /api/token/
+            </div>
+            <div class="description">Obtain an access and refresh token.</div>
+            <div class="request">
+                <div class="label">Request Body:</div>
+                <pre><code>{
+    "username": "string",
+    "password": "string"
+}</code></pre>
+            </div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "access": "string",
+    "refresh": "string"
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="path">
+                <span class="method POST">POST</span> /api/token/refresh/
+            </div>
+            <div class="description">Refresh the access token using a refresh token.</div>
+            <div class="request">
+                <div class="label">Request Body:</div>
+                <pre><code>{
+    "refresh": "string"
+}</code></pre>
+            </div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "access": "string"
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- User Management -->
+        <div class="endpoint">
+            <div class="path">
+                <span class="method POST">POST</span> /api/createUser/
+            </div>
+            <div class="description">Create a new user.</div>
+            <div class="request">
+                <div class="label">Request Body:</div>
+                <pre><code>{
+    "username": "string",
+    "email": "string",
+    "password": "string"
+}</code></pre>
+            </div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "id": "int",
+    "username": "string",
+    "email": "string"
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="path">
+                <span class="method GET">GET</span> /api/getUser/&lt;str:id&gt;
+            </div>
+            <div class="description">Get user details by user ID.</div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "id": "int",
+    "username": "string",
+    "email": "string",
+    "is_active": "bool"
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="path">
+                <span class="method PATCH">PATCH</span> /api/deactivateUser/&lt;str:id&gt;
+            </div>
+            <div class="description">Deactivate a user by ID.</div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "id": "int",
+    "username": "string",
+    "status": "Deactivated"
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="path">
+                <span class="method PATCH">PATCH</span> /api/activateUser/&lt;str:id&gt;
+            </div>
+            <div class="description">Activate a user by ID.</div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "id": "int",
+    "username": "string",
+    "status": "Activated"
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- Fruits -->
+        <div class="endpoint">
+            <div class="path">
+                <span class="method POST">POST</span> /api/createFruit/
+            </div>
+            <div class="description">Create a new fruit.</div>
+            <div class="request">
+                <div class="label">Request Body:</div>
+                <pre><code>{
+    "name": "string",
+    "color": "string",
+    "season": "string"
+}</code></pre>
+            </div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "id": "int",
+    "name": "string",
+    "color": "string",
+    "season": "string"
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="path">
+                <span class="method GET">GET</span> /api/getFruit/&lt;str:name&gt;
+            </div>
+            <div class="description">Get details of a fruit by name.</div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "id": "int",
+    "name": "string",
+    "color": "string",
+    "season": "string"
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="path">
+                <span class="method DELETE">DELETE</span> /api/deleteFruit/&lt;str:name&gt;
+            </div>
+            <div class="description">Delete a fruit by name.</div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "message": "Fruit deleted successfully"
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="path">
+                <span class="method PATCH">PATCH</span> /api/editFruit/&lt;str:name&gt;
+            </div>
+            <div class="description">Update a fruit's details by name.</div>
+            <div class="request">
+                <div class="label">Request Body:</div>
+                <pre><code>{
+    "name": "string",
+    "color": "string",
+    "season": "string"
+}</code></pre>
+            </div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "id": "int",
+    "name": "string",
+    "color": "string",
+    "season": "string"
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="path">
+                <span class="method GET">GET</span> /api/indexFruit/
+            </div>
+            <div class="description">Get a list of all fruits.</div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>[
+    {
+        "id": "int",
+        "name": "string",
+        "color": "string",
+        "season": "string"
+    },
+    ...
+]</code></pre>
+            </div>
+        </div>
+
+        <!-- Colors -->
+        <div class="endpoint">
+            <div class="path">
+                <span class="method POST">POST</span> /api/createColor/
+            </div>
+            <div class="description">Create a new color.</div>
+            <div class="request">
+                <div class="label">Request Body:</div>
+                <pre><code>{
+    "name": "string",
+    "hex_value": "string"
+}</code></pre>
+            </div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "id": "int",
+    "name": "string",
+    "hex_value": "string"
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="path">
+                <span class="method GET">GET</span> /api/getColor/&lt;str:name&gt;
+            </div>
+            <div class="description">Get details of a color by name.</div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "id": "int",
+    "name": "string",
+    "hex_value": "string"
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="path">
+                <span class="method DELETE">DELETE</span> /api/deleteColor/&lt;str:name&gt;
+            </div>
+            <div class="description">Delete a color by name.</div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "message": "Color deleted successfully"
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="path">
+                <span class="method PATCH">PATCH</span> /api/editColor/&lt;str:name&gt;
+            </div>
+            <div class="description">Update a color's details by name.</div>
+            <div class="request">
+                <div class="label">Request Body:</div>
+                <pre><code>{
+    "name": "string",
+    "hex_value": "string"
+}</code></pre>
+            </div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "id": "int",
+    "name": "string",
+    "hex_value": "string"
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="path">
+                <span class="method GET">GET</span> /api/indexColor/
+            </div>
+            <div class="description">Get a list of all colors.</div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>[
+    {
+        "id": "int",
+        "name": "string",
+        "hex_value": "string"
+    },
+    ...
+]</code></pre>
+            </div>
+        </div>
+
+        <!-- Seasons -->
+        <div class="endpoint">
+            <div class="path">
+                <span class="method POST">POST</span> /api/createSeason/
+            </div>
+            <div class="description">Create a new season.</div>
+            <div class="request">
+                <div class="label">Request Body:</div>
+                <pre><code>{
+    "name": "string",
+    "months": ["string", "string"]
+}</code></pre>
+            </div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "id": "int",
+    "name": "string",
+    "months": ["string", "string"]
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="path">
+                <span class="method GET">GET</span> /api/getSeason/&lt;str:name&gt;
+            </div>
+            <div class="description">Get details of a season by name.</div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "id": "int",
+    "name": "string",
+    "months": ["string", "string"]
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="path">
+                <span class="method DELETE">DELETE</span> /api/deleteSeason/&lt;str:name&gt;
+            </div>
+            <div class="description">Delete a season by name.</div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "message": "Season deleted successfully"
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="path">
+                <span class="method PATCH">PATCH</span> /api/editSeason/&lt;str:name&gt;
+            </div>
+            <div class="description">Update a season's details by name.</div>
+            <div class="request">
+                <div class="label">Request Body:</div>
+                <pre><code>{
+    "name": "string",
+    "months": ["string", "string"]
+}</code></pre>
+            </div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>{
+    "id": "int",
+    "name": "string",
+    "months": ["string", "string"]
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="path">
+                <span class="method GET">GET</span> /api/indexSeason/
+            </div>
+            <div class="description">Get a list of all seasons.</div>
+            <div class="response">
+                <div class="label">Response:</div>
+                <pre><code>[
+    {
+        "id": "int",
+        "name": "string",
+        "months": ["string", "string"]
+    },
+    ...
+]</code></pre>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

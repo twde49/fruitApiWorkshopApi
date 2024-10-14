@@ -1,2 +1,129 @@
-<span>This page is for managing User of the app</span>
-<h3>Here are the users</h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        h3 {
+            color: #4CAF50;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .user-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9f9f9;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+        }
+        .user-info {
+            font-size: 18px;
+        }
+        .user-status {
+            font-weight: bold;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        .active {
+            color: #4CAF50;
+        }
+        .inactive {
+            color: #F44336;
+        }
+        .button {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #1e88e5;
+        }
+        .inactive-button {
+            background-color: #F44336;
+        }
+        .inactive-button:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h3>Here are the users</h3>
+        {% for user in users %}
+        <div class="user-card">
+            <div class="user-info">
+                {{ user.username }} 
+                {% if user.is_active %}
+                <span class="user-status active">is active</span>
+                {% else %}
+                <span class="user-status inactive">is not active</span>
+                {% endif %}
+            </div>
+            <div class="user-actions">
+                {% if user.is_active %}
+                <button class="button inactive-button" onclick="deactivate({{ user.id }})">Deactivate</button>
+                {% else %}
+                <button class="button" onclick="activate({{ user.id }})">Activate</button>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+<script>
+    let loading = false;
+    
+     if(loading === true)
+      document.querySelector(".button").disabled = true;
+    else
+      document.querySelector(".button").disabled = false;
+    
+    let url = "http://localhost:8000/api/"
+    async function deactivate(userId){
+        loading = true
+        url+=`deactivateUser/${userId}`
+        await fetch(url,{body:JSON.stringify({id:userId}),method:"PUT"}).then(
+            ()=>{console.log('user deactivated')}
+        ).catch(err=>{
+            throw err
+        }).finally(
+            ()=>{loading = false}
+        )
+    }
+    
+    async function activate(userId){
+        loading = true
+        url+=`activateUser/${userId}`
+        await fetch(url,{body:JSON.stringify({id:userId}),method:"PUT"}).then(
+            ()=>{console.log('user activated')}
+        ).catch(err=>{
+            throw err
+        }).finally(
+            ()=>{loading = false}
+        )
+    }
+</script>

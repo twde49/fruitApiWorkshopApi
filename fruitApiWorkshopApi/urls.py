@@ -30,4 +30,6 @@ urlpatterns = [
     path("api/deleteSeason/<str:name>", views.delete_season, name="season_delete"),
     path("api/editSeason/<str:name>", views.update_season, name="season_edit"),
     path("api/indexSeason/", views.get_seasons, name="season_index"),
+    path("api/deactivateUser/<str:id>", views.deactivate_user, name="deactivate_user"),
+    path("api/activateUser/<str:id>", views.activate_user, name="activate_user"),
 ]

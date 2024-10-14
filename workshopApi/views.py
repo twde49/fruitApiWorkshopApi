@@ -19,7 +19,10 @@ def show_doc(request):
 @renderer_classes([TemplateHTMLRenderer])
 def userManagement(request):
     template = loader.get_template("manageUser.html")
-    return HttpResponse(template.render({}, request))
+    context = {
+        "users": CustomUser.objects.all(),
+    }
+    return HttpResponse(template.render(context, request))
 
 
 @api_view(["POST"])
@@ -174,3 +177,25 @@ def get_seasons(request):
     seasons = Season.objects.all()
     seasons_serialized = SeasonSerializer(seasons, many=True)
     return JsonResponse(seasons_serialized.data, status=status.HTTP_200_OK)
+
+
+@api_view(["PUT"])
+def deactivate_user(request, id):
+    user = get_object_or_404(CustomUser, id=id)
+    if user is not None:
+        user.is_active = False
+        user.save()
+        return JsonResponse("User deactivated", status=status.HTTP_200_OK, safe=False)
+    else:
+        return JsonResponse("User not found", status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(["PUT"])
+def activate_user(request, id):
+    user = get_object_or_404(CustomUser, id=id)
+    if user is not None:
+        user.is_active = True
+        user.save()
+        return JsonResponse("User deactivated", status=status.HTTP_200_OK, safe=False)
+    else:
+        return JsonResponse("User not found", status=status.HTTP_404_NOT_FOUND)
