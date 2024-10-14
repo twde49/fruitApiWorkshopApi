@@ -20,9 +20,20 @@ class SeasonSerializer(serializers.ModelSerializer):
         fields = '__all__'
         depth = 1
 
-class CustomUserSerializer(serializers.ModelSerializer):
+
+class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = '__all__'
-        depth = 1
+        fields = ('username', 'password')
+        extra_kwargs = {'password': {'write_only': True}}
 
+    def create(self, validated_data):
+        user = CustomUser.objects.create_user(**validated_data)
+        user.save()
+
+        return user
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id','UUID','username','email']
