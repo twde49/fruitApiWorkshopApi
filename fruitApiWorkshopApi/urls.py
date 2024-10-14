@@ -19,4 +19,9 @@ urlpatterns = [
     path("api/deleteFruit/<str:name>", views.delete_fruit, name="fruit_delete"),
     path("api/editFruit/<str:name>", views.update_fruit, name="fruit_edit"),
     path("api/indexFruit/", views.get_fruits, name="fruit_index"),
+    path("api/createColor/", views.create_color, name="create_color"),
+    path("api/getColor/<str:name>", views.get_color, name="color_view"),
+    path("api/deleteColor/<str:name>", views.delete_color, name="color_delete"),
+    path("api/editColor/<str:name>", views.update_color, name="color_edit"),
+    path("api/indexColor/", views.get_colors, name="color_index"),
 ]

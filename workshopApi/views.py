@@ -79,3 +79,47 @@ def get_fruits(request):
     fruits = Fruit.objects.all()
     fruit_serialized = FruitSerializer(fruits, many=True)
     return JsonResponse(fruit_serialized.data, status=status.HTTP_200_OK)
+
+
+@api_view(["POST"])
+def create_color(request):
+    serializer = ColorSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save()
+        return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+    return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET"])
+def get_color(request, name):
+    color = get_object_or_404(Color, name=name)
+    color_serialized = ColorSerializer(color)
+    return JsonResponse(color_serialized.data, status=status.HTTP_200_OK)
+
+
+@api_view(["DELETE"])
+def delete_color(request, name):
+    color = get_object_or_404(Color, name=name)
+    if color is not None:
+        color.delete()
+        return JsonResponse("Color got deleted", status=status.HTTP_204_NO_CONTENT)
+    return JsonResponse("Color not found", status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(["PUT"])
+def update_color(request, name):
+    color = get_object_or_404(Color, name=name)
+    if color is not None:
+        serializer = ColorSerializer(color, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return JsonResponse(serializer.data, status=status.HTTP_200_OK)
+        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return JsonResponse("Color not found", status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(["GET"])
+def get_colors(request):
+    colors = Color.objects.all()
+    colors_serialized = ColorSerializer(colors, many=True)
+    return JsonResponse(colors_serialized.data, status=status.HTTP_200_OK)
