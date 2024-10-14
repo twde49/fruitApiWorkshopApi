@@ -1,0 +1,6 @@
+.venv
+/.idea
+/workshopApi/__pycache__/*
+/fruitApiWorkshopApi/__pycache__/*
+workshopApi/api/__pycache__/*
+workshopApi/migrations/__pycache__/*
