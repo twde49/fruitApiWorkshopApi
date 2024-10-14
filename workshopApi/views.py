@@ -15,6 +15,13 @@ def show_doc(request):
     return HttpResponse(template.render({}, request))
 
 
+@api_view(["GET"])
+@renderer_classes([TemplateHTMLRenderer])
+def userManagement(request):
+    template = loader.get_template("manageUser.html")
+    return HttpResponse(template.render({}, request))
+
+
 @api_view(["POST"])
 def create_user(request):
     serializer = UserRegistrationSerializer(data=request.data)
@@ -39,7 +46,7 @@ def get_user(request, id):
 
 @api_view(["POST"])
 def create_fruit(request):
-    serializer = FruitCreationSerializer(data=request.data)
+    serializer = FruitSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save()
         return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
