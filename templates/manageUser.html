@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,10 +75,12 @@
 
     <div class="container">
         <h3>Here are the users</h3>
+        <h2>{% if user.is_authenticated %}
+        	Hey {{ user.username }}</h2>
         {% for user in users %}
         <div class="user-card">
             <div class="user-info">
-                {{ user.username }} 
+                {{ user.username }}
                 {% if user.is_active %}
                 <span class="user-status active">is active</span>
                 {% else %}
@@ -92,16 +96,19 @@
             </div>
         </div>
         {% endfor %}
+            {% else %}
+            <span>Vous devez être admin pour utiliser cette fonction</span>
+    {% endif %}
     </div>
 
 <script>
     let loading = false;
-    
+
      if(loading === true)
       document.querySelector(".button").disabled = true;
     else
       document.querySelector(".button").disabled = false;
-    
+
     let url = "http://localhost:8000/api/"
     async function deactivate(userId){
         loading = true
@@ -114,7 +121,7 @@
             ()=>{loading = false}
         )
     }
-    
+
     async function activate(userId){
         loading = true
         url+=`activateUser/${userId}`
@@ -127,3 +134,4 @@
         )
     }
 </script>
+    {% endblock content %}
