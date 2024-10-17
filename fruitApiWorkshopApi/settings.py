@@ -58,6 +58,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "fruitApiWorkshopApi.middleware.requestInterceptor.RequestInterceptor",
 ]
 
 ROOT_URLCONF = "fruitApiWorkshopApi.urls"
@@ -154,3 +155,12 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_ORIGINS = ["localhost:8000"]
 
 LOGIN_URL = "login"
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "localhost"
+EMAIL_HOST_USER = False
+EMAIL_HOST_PASSWORD = False
+EMAIL_PORT = "1025"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
